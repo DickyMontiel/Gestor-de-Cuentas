@@ -19,5 +19,7 @@
         
         <button type="submit">Ingresar Cuenta</button>
     </form>
+
+    <?php $controlador->listarCuentas(); ?>
 </body>
 </html>

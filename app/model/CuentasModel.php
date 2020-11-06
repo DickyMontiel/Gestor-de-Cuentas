@@ -2,6 +2,8 @@
     class CuentasModel{
         private $conn;
 
+        private $cuentas = array();
+
         public function __construct(){
             $database = new Conexion;
             $this->conn = $database->getConexion();
@@ -23,5 +25,29 @@
                 return false;
             }
 
+        }
+
+        public function saveCuentas(){
+            $estado;
+
+            $sql = "SELECT * FROM Cuentas c, Servicios s WHERE s.idServicio = c.servicioCuenta";
+
+            $query = $this->conn->prepare($sql);
+            $estado = $query->execute();
+            
+
+            while($fila = $query->fetch(PDO::FETCH_ASSOC)){
+                $this->cuentas[] = $fila;
+            }
+
+            if($estado){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        public function getCuentas(){
+            return $this->cuentas;
         }
     }
